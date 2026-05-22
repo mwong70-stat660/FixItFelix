@@ -1,0 +1,10 @@
+{
+  "name": "FixItFelix",
+  "description": "Scan appliances to find instant repair guides, YouTube videos, and parts replacement logic.",
+  "requestFramePermissions": [
+    "camera"
+  ],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
