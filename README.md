@@ -10,8 +10,6 @@ Point your phone at a broken kitchen appliance, and Fix-it-Felix generates a cus
 
 ## Architecture
 
-![Architecture](docs/architecture.svg)
-
 - **PWA Frontend**: Vanilla JS, full-bleed camera, PIP video.
 - **FastAPI Backend**: Orchestrates agents and proxies Gemini Live.
 - **Identifier Agent**: Gemini 2.5 Flash for rapid appliance/symptom detection.
