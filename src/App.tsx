@@ -68,12 +68,6 @@ export default function App() {
                      Home (Scan)
                    </button>
                    <button 
-                     onClick={() => { setView('beta'); setMenuOpen(false); }}
-                     className="px-4 py-3 text-left text-sm font-medium text-neutral-700 hover:bg-neutral-50 w-full"
-                   >
-                     Beta Program
-                   </button>
-                   <button 
                      onClick={() => { setView('dashboard'); setMenuOpen(false); }}
                      className="px-4 py-3 text-left text-sm font-medium text-neutral-700 hover:bg-neutral-50 w-full"
                    >
@@ -86,38 +80,32 @@ export default function App() {
         </div>
       </header>
 
-      <main className="max-w-6xl mx-auto px-4 py-8 sm:py-12">
+      <main className="w-full">
         {view === 'scan' && (
-           <div className="space-y-8 animate-in fade-in zoom-in-95 duration-500">
-             <div className="text-center space-y-3 max-w-lg mx-auto">
-                <h2 className="text-3xl font-semibold text-neutral-900 tracking-tight">Identify & Repair</h2>
-                <p className="text-neutral-500 leading-relaxed">
-                  Point your camera at any home or industrial appliance to get instant diagnostic steps, video tutorials, and verified replacement parts.
-                </p>
-             </div>
-             <Scanner onCapture={handleCapture} isAnalyzing={isAnalyzing} />
-           </div>
+           <Scanner onCapture={handleCapture} isAnalyzing={isAnalyzing} />
         )}
 
-        {view === 'results' && resultData && (
-          <Results 
-            data={resultData} 
-            onReset={() => { setResultData(null); setView('scan'); }}
-            onNext={() => setView('beta')}
-          />
-        )}
+        <div className="max-w-6xl mx-auto px-4 py-8 sm:py-12">
+          {view === 'results' && resultData && (
+            <Results 
+              data={resultData} 
+              onReset={() => { setResultData(null); setView('scan'); }}
+              onNext={() => setView('beta')}
+            />
+          )}
 
-        {view === 'beta' && (
-          <BetaProgram onSurvey={() => setView('survey')} />
-        )}
+          {view === 'beta' && (
+            <BetaProgram onSurvey={() => setView('survey')} />
+          )}
 
-        {view === 'survey' && (
-          <Survey onFinish={() => setView('dashboard')} />
-        )}
+          {view === 'survey' && (
+            <Survey onFinish={() => setView('dashboard')} />
+          )}
 
-        {view === 'dashboard' && (
-          <Dashboard />
-        )}
+          {view === 'dashboard' && (
+            <Dashboard />
+          )}
+        </div>
       </main>
     </div>
   );

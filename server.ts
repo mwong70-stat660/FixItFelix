@@ -49,7 +49,7 @@ Analyze the image of the appliance and provide the following information in JSON
 `;
 
       const response = await ai.models.generateContent({
-        model: 'gemini-3.1-pro-preview',
+        model: 'gemini-3.5-flash',
         contents: [
           {
             inlineData: {
@@ -88,10 +88,17 @@ Analyze the image of the appliance and provide the following information in JSON
     try {
       const { partsPrompt, youtubeQuery } = req.body;
 
-      // Mocking YouTube query context via generate content
+      // Generate realistic YouTube tutorial searches and titles for DIY repair.
+      // To ensure links are 100% active and working, the 'url' field must be a search_query URL
+      // formatted exactly as: https://www.youtube.com/results?search_query=<url_encoded_query>
       const videoResponse = await ai.models.generateContent({
-        model: 'gemini-3.1-pro-preview',
-        contents: `Find 2 YouTube video titles and URLs (mock URLs if necessary) for DIY repair of: ${youtubeQuery}. Return JSON array of objects with 'title' and 'url'.`,
+        model: 'gemini-3.5-flash',
+        contents: `Generate 2 highly specific, realistic YouTube tutorial video titles for recovering or repairing: ${youtubeQuery}. 
+For each tutorial, construct a working search-based YouTube URL that is guaranteed to function without 'video not found' errors.
+The format of each 'url' MUST be a search query results URL: https://www.youtube.com/results?search_query=<query terms including specific brand, appliance, and exact task>.
+Do not use fictitious watch IDs like /watch?v=mock.
+
+Return a JSON array of objects with 'title' and 'url'.`,
         config: {
           responseMimeType: 'application/json',
           responseSchema: {
@@ -108,7 +115,7 @@ Analyze the image of the appliance and provide the following information in JSON
       });
 
       const partsResponse = await ai.models.generateContent({
-        model: 'gemini-3.1-pro-preview',
+        model: 'gemini-3.5-flash',
         contents: `Compare prices for replacement parts for: ${partsPrompt} across 3 different local or online stores. Focus on the top 7 manufacturers. Return JSON array of objects with 'store', 'partName', 'price' (number).`,
         config: {
           responseMimeType: 'application/json',

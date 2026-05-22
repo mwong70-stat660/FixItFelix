@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'motion/react';
-import { Wrench, Youtube, MapPin, Search, ArrowRight, Truck } from 'lucide-react';
+import { Wrench, Youtube, MapPin, Search, ArrowRight, Truck, Sparkles } from 'lucide-react';
 import { cn } from '../lib/utils';
+import { AIVideoTab } from './AIVideoTab';
+import { ExportToSlides } from './ExportToSlides';
 
 interface ResultData {
   appliance: string;
@@ -18,7 +20,7 @@ interface ResultsProps {
 }
 
 export function Results({ data, onReset, onNext }: ResultsProps) {
-  const [activeTab, setActiveTab] = useState<'guides' | 'videos' | 'parts'>('guides');
+  const [activeTab, setActiveTab] = useState<'guides' | 'ai' | 'videos' | 'parts'>('guides');
   const [loadingExtras, setLoadingExtras] = useState(false);
   const [videos, setVideos] = useState<any[]>([]);
   const [parts, setParts] = useState<any[]>([]);
@@ -60,15 +62,16 @@ export function Results({ data, onReset, onNext }: ResultsProps) {
 
       <div className="bg-white rounded-3xl overflow-hidden shadow-sm border border-neutral-100">
         <div className="flex border-b border-neutral-100 overflow-x-auto">
-           {['guides', 'videos', 'parts'].map((tab) => (
+           {['guides', 'ai', 'videos', 'parts'].map((tab) => (
              <button
                key={tab}
                onClick={() => setActiveTab(tab as any)}
                className={cn(
-                 "flex-1 px-6 py-4 text-sm font-medium capitalize transition-colors whitespace-nowrap",
+                 "flex-1 px-6 py-4 text-sm font-medium capitalize transition-colors whitespace-nowrap flex items-center justify-center gap-1.5",
                  activeTab === tab ? "text-blue-600 border-b-2 border-blue-600" : "text-neutral-500 hover:text-neutral-800"
                )}
              >
+               {tab === 'ai' && <Sparkles className="w-3.5 h-3.5 text-blue-500" />}
                {tab}
              </button>
            ))}
@@ -91,6 +94,13 @@ export function Results({ data, onReset, onNext }: ResultsProps) {
                    </div>
                  ))}
                </div>
+               <ExportToSlides appliance={data.appliance} brand={data.brand} guides={data.guides} />
+            </motion.div>
+          )}
+
+          {activeTab === 'ai' && (
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+               <AIVideoTab appliance={data.appliance} brand={data.brand} guides={data.guides} />
             </motion.div>
           )}
 
@@ -167,7 +177,7 @@ export function Results({ data, onReset, onNext }: ResultsProps) {
           onClick={onNext}
           className="flex-1 py-4 text-white bg-neutral-900 rounded-full font-medium hover:bg-neutral-800 transition"
         >
-          Join Beta Program
+          Take A Survey
         </button>
       </div>
     </motion.div>
