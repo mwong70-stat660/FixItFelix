@@ -6,9 +6,9 @@
 
 ## Team
 - Keivalya Pandya (keivalyapandya@gmail.com)
-- America Lopez
-- Moria
-- Sherly
+- America Lopez (alopezmartinez@go.pasadena.edu)
+- Moria (wong.moria@gmail.com)
+- Sherly (reachsherly@gmail.com)
 
 ## 🏗 Architecture
 Fix-It-Felix is built on a modern, full-stack reactive architecture designed for speed and precision.
